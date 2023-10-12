@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataroot>
+   <REGIONE cod_reg="ANAG_DPM_REGIONI__valid-dates">
+      <PERIODO mese="03" anno="2022">
+         <ASL cod_asl="150201">
+            <EROGATORE tipo_er="01" id_er="15014000">
+               <ASSISTITO id_ass="09iUh006733AXafjyurdy8Gn8nh4XoZIm+BJ6Svr060=cg6mJ4CUmIItjvLjhpSxj50hmYGVH3NX1M5nHX54AD0=" vld_id_ass="0" tip_id_ass="0" dat_nasc="1970-01-01" sesso="2" cod_asl_ass="150201" citt="1">
+                  <OPERAZIONE tipo_op="I">
+                     <PRESCRIZIONE tipo_cont="2" id_cont="201150140841717     " dat_erog="2022-02-22" tipo_esen="0" tipo_erog="03" tipo_canale="D" dat_pres="2022-02-21" costo_srv_ric="0.00">
+                        <PRESCRITTORE tipo_pr="H" cod_pr="0000000000004000"/>
+                        <FARMACO cod_f="041928045" tipo_f="1" targatura="000085342X" costo_acq="23.76000" qta="120.00" fatt_conv="120"/>
+                     </PRESCRIZIONE>
+                  </OPERAZIONE>
+               </ASSISTITO>
+               <ASSISTITO id_ass="09iUh0067kAQ+D+lL90N8Z6irqya1J184Cs0zWSDWI8=Li+4Vsis5jOuw0pUuZYAXiuCpt8Tz8nfPHVq/EGOUfc=" vld_id_ass="0" tip_id_ass="0" dat_nasc="1970-01-01" sesso="2" cod_asl_ass="150207" citt="1">
+                  <OPERAZIONE tipo_op="I">
+                     <PRESCRIZIONE tipo_cont="2" id_cont="201150140865949     " dat_erog="2022-02-03" tipo_esen="0" tipo_erog="02" tipo_canale="D" dat_pres="2022-02-02" costo_srv_ric="0.00">
+                        <PRESCRITTORE tipo_pr="H" cod_pr="0000000000005200"/>
+                        <FARMACO cod_f="043873052" tipo_f="1" targatura="004763406X" costo_acq="882.20333" qta="2.00" fatt_conv="2"/>
+                     </PRESCRIZIONE>
+                  </OPERAZIONE>
+               </ASSISTITO>
+               <ASSISTITO id_ass="09iUh006733AXafjyufpvkEzPwqio36vrJgz9V2RkrI=S7h9UEZbpLmqy8g2lpPhMzvnc62IgbhHSllUoxQP6no=" vld_id_ass="0" tip_id_ass="0" dat_nasc="1970-01-01" sesso="2" cod_asl_ass="150201" citt="1">
+                  <OPERAZIONE tipo_op="I">
+                     <PRESCRIZIONE tipo_cont="2" id_cont="201150140877158     " dat_erog="2022-02-25" tipo_esen="0" tipo_erog="02" tipo_canale="D" dat_pres="2022-02-24" costo_srv_ric="0.00">
+                        <PRESCRITTORE tipo_pr="H" cod_pr="0000000000002500"/>
+                        <FARMACO cod_f="045451111" tipo_f="1" targatura="005299256X" costo_acq="199.76000" qta="4.00" fatt_conv="4"/>
+                     </PRESCRIZIONE>
+                  </OPERAZIONE>
+               </ASSISTITO>
+               <ASSISTITO id_ass="09iUh006733AXafjyuJ66KoLuKojpa1DnBDDjHXFz0c=fm79ei/9yf7dXAZVppfcLJBnRXpX/kqo/tDcheob2/k=" vld_id_ass="0" tip_id_ass="0" dat_nasc="1970-01-01" sesso="2" cod_asl_ass="150201" citt="1">
+                  <OPERAZIONE tipo_op="I">
+                     <PRESCRIZIONE tipo_cont="2" id_cont="201150140869111     " dat_erog="2022-02-15" tipo_esen="0" tipo_erog="03" tipo_canale="D" dat_pres="2022-02-14" costo_srv_ric="0.00">
+                        <PRESCRITTORE tipo_pr="H" cod_pr="0000000000003800"/>
+                        <FARMACO cod_f="023770011" tipo_f="1" targatura="276638334X" costo_acq="1.98000" qta="20.00" fatt_conv="20"/>
+                        <FARMACO cod_f="023993013" tipo_f="1" targatura="3136746293" costo_acq="0.23000" qta="30.00" fatt_conv="30"/>
+                     </PRESCRIZIONE>
+                     <PRESCRIZIONE tipo_cont="2" id_cont="201150140869125     " dat_erog="2022-02-15" tipo_esen="0" tipo_erog="03" tipo_canale="D" dat_pres="2022-02-14" costo_srv_ric="0.00">
+                        <PRESCRITTORE tipo_pr="H" cod_pr="0000000000003800"/>
+                        <FARMACO cod_f="045104041" tipo_f="1" targatura="063920413X" costo_acq="17.16000" qta="10.00" fatt_conv="10"/>
+                     </PRESCRIZIONE>
+                  </OPERAZIONE>
+               </ASSISTITO>
+            </EROGATORE>
+         </ASL>
+      </PERIODO>
+   </REGIONE>
+</dataroot>
