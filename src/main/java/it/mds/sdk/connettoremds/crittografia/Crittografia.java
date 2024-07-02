@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 package it.mds.sdk.connettoremds.crittografia;
 
 import it.gov.salute.interconnessione.api.core.InterconnessioneApi;

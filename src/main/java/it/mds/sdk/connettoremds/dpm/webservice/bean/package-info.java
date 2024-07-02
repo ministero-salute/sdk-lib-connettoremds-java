@@ -4,6 +4,7 @@
 // Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
 // Generato il: 2022.06.08 alle 02:52:56 PM CEST 
 //
+/* SPDX-License-Identifier: BSD-3-Clause */
 
 @jakarta.xml.bind.annotation.XmlSchema(namespace = "http://be.dpm.mds.it", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package it.mds.sdk.connettoremds.dpm.webservice.bean;

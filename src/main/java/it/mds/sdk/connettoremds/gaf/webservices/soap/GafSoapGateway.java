@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: BSD-3-Clause */
+
 package it.mds.sdk.connettoremds.gaf.webservices.soap;
 
 import it.mds.sdk.connettoremds.exception.ConnettoreMdsException;
