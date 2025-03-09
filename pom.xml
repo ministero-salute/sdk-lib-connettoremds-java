@@ -14,8 +14,6 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<slf4j.version>1.7.36</slf4j.version>
 		<logback.version>1.2.11</logback.version>
-		<lombok.version>1.18.22</lombok.version>
-		<org.springframework.version>5.3.18</org.springframework.version>
 		<junit.version>5.9.1</junit.version>
 		<mockito.version>4.4.0</mockito.version>
 		<gestorefile.version>0.0.5-SNAPSHOT</gestorefile.version>
@@ -25,7 +23,21 @@
 		<jacoco.version>0.8.4</jacoco.version>
 		<maven.surfire.version>3.0.0-M6</maven.surfire.version>
 		<sonar.java.libraries>target/classes</sonar.java.libraries>
+		<spring-boot.version>2.7.17</spring-boot.version>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 		<!-- Logger API -->
 		<dependency>
@@ -36,13 +48,27 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>${lombok.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>${org.springframework.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>jakarta.xml.bind</groupId>
 			<artifactId>jakarta.xml.bind-api</artifactId>
@@ -96,25 +122,24 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>5.3.18</version>
+			<version>5.3.30</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
-			<artifactId>bcprov-jdk15on</artifactId>
-			<version>1.68</version>
-			<scope>compile</scope>
+			<artifactId>bcprov-jdk18on</artifactId>
+			<version>1.76</version>
 		</dependency>
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
-			<artifactId>bcpkix-jdk15on</artifactId>
-			<version>1.58</version>
+			<artifactId>bcpkix-jdk18on</artifactId>
+			<version>1.76</version>
 			<scope>compile</scope>
 		</dependency>
         <dependency>
             <groupId>org.bouncycastle</groupId>
-            <artifactId>bcmail-jdk15on</artifactId>
-            <version>1.54</version>
+            <artifactId>bcmail-jdk18on</artifactId>
+            <version>1.76</version>
         </dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -131,13 +156,7 @@
             <artifactId>sdk-lib-crypto</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
     </dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
