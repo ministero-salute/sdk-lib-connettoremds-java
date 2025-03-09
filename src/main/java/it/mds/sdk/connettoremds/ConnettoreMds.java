@@ -23,7 +23,7 @@ public interface ConnettoreMds {
     public DpmMdsResponse verificaElaborazioneDonazionePostMortem (String idSoggettoAlimentante,
                                                          SoggettoAlimentanteType soggettoAlimentanteType,String idRun) throws ConnettoreMdsException;
 
-    public ResponseEsitoUpload getEsitoUpload (List<String> idsUpload) throws ConnettoreMdsException;
+    public ResponseEsitoUpload getEsitoUpload (List<String> idsUpload, String category) throws ConnettoreMdsException;
 
     public ResponseDownload downloadFus (List<String> idsUpload) throws ConnettoreMdsException;
 

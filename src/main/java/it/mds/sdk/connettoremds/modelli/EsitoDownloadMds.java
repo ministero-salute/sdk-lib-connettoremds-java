@@ -3,7 +3,11 @@
 package it.mds.sdk.connettoremds.modelli;
 
 import it.mds.sdk.connettoremds.enums.EsitoDownloadEnum;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.Value;
 
 @Value

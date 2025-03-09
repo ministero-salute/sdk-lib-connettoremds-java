@@ -3,16 +3,8 @@
 package it.mds.sdk.connettoremds;
 
 
-import it.mds.sdk.connettoremds.conf.ConfigurazioneConnettoreMds;
-import it.mds.sdk.connettoremds.dispovig.webservice.bean.UploadFile;
-import it.mds.sdk.connettoremds.dispovig.webservice.bean.UploadFileResponse;
 import it.mds.sdk.connettoremds.dispovig.webservice.soap.DispoVigSoapGateway;
 import it.mds.sdk.connettoremds.dpm.soap.DpmSoapGateway;
-import it.mds.sdk.connettoremds.dpm.webservice.bean.DpmInvioXmlRequest;
-import it.mds.sdk.connettoremds.dpm.webservice.bean.DpmVerificaStatoXmlRequest;
-import it.mds.sdk.connettoremds.dpm.webservice.bean.SoggettoAlimentanteType;
-import it.mds.sdk.connettoremds.dpm.webservice.bean.TipoAttoType;
-import it.mds.sdk.connettoremds.dpm.webservice.bean.verifica.stato.DpmMdsResponse;
 import it.mds.sdk.connettoremds.enums.EsitoDownloadEnum;
 import it.mds.sdk.connettoremds.enums.EsitoElaborazioneEnum;
 import it.mds.sdk.connettoremds.exception.ConnettoreMdsException;
@@ -22,11 +14,11 @@ import it.mds.sdk.connettoremds.modelli.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -35,21 +27,18 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component("connettoreMds")
-public class ConnettoreMdsSOAP implements ConnettoreMds {
+@ConditionalOnProperty(name = "connettoreMds.type", havingValue = "SOAP", matchIfMissing = true)
+public class ConnettoreMdsSOAP extends ConnettoreMdsAbstract implements ConnettoreMds {
 
-    private final ConfigurazioneConnettoreMds config;
-    private final DpmSoapGateway dpmSoapGateway;
     private final GafSoapGateway gafSoapGateway;
-    private final DispoVigSoapGateway dispoVigSoapGateway;
+
 
     @Autowired
     public ConnettoreMdsSOAP(@Qualifier("dpmSoapGateway") DpmSoapGateway dpmSoapGateway,
                              @Qualifier("gafSoapGateway") GafSoapGateway gafSoapGateway,
                              @Qualifier("dispoVigSoapGateway") DispoVigSoapGateway dispoVigSoapGateway) {
-        this.config = new ConfigurazioneConnettoreMds();
-        this.dpmSoapGateway = dpmSoapGateway;
+        super(dpmSoapGateway, dispoVigSoapGateway);
         this.gafSoapGateway = gafSoapGateway;
-        this.dispoVigSoapGateway = dispoVigSoapGateway;
     }
 
     /**
@@ -63,7 +52,7 @@ public class ConnettoreMdsSOAP implements ConnettoreMds {
                                              String nomeFlusso, String periodoRiferimento,
                                              String annoRiferimento) throws ConnettoreMdsException {
         log.debug("{}.invioTracciati - tracciati[{}] - categoriaFlusso[{}] - nomeFlusso[{}] - periodoRiferimento[{}] - annoRiferimento[{}] - BEGIN",
-                this.getClass().getName(), tracciati.stream().map(obj->""+obj).collect(Collectors.joining("|")), categoriaFlusso, nomeFlusso, periodoRiferimento, annoRiferimento);
+                this.getClass().getName(), tracciati.stream().map(obj -> "" + obj).collect(Collectors.joining("|")), categoriaFlusso, nomeFlusso, periodoRiferimento, annoRiferimento);
         URL endpoint = null;
         try {
 
@@ -80,13 +69,11 @@ public class ConnettoreMdsSOAP implements ConnettoreMds {
         } catch (ConnettoreMdsException | IOException e) {
             //TODO rivedere le eccezioni
             log.error("{}.invioTracciati - tracciati[{}] - categoriaFlusso[{}] - nomeFlusso[{}] - periodoRiferimento[{}] - annoRiferimento[{}]",
-                    this.getClass().getName(), tracciati.stream().map(obj->""+obj).collect(Collectors.joining("|")), categoriaFlusso, nomeFlusso, periodoRiferimento, annoRiferimento, e);
+                    this.getClass().getName(), tracciati.stream().map(obj -> "" + obj).collect(Collectors.joining("|")), categoriaFlusso, nomeFlusso, periodoRiferimento, annoRiferimento, e);
             throw new ConnettoreMdsException("Eccezione nella chiamata invio Tracciati" + e.getMessage(), e);
         }
 
     }
-
-
 
 
     /**
@@ -96,7 +83,7 @@ public class ConnettoreMdsSOAP implements ConnettoreMds {
      * @return ResponseEsitoUpload
      */
     @Override
-    public ResponseEsitoUpload getEsitoUpload(List<String> idsUpload) throws ConnettoreMdsException {
+    public ResponseEsitoUpload getEsitoUpload(List<String> idsUpload, String category) throws ConnettoreMdsException {
         log.debug("{}.getEsitoUpload - idsUpload[{}] - BEGIN", this.getClass().getName(), String.join("|", idsUpload));
         //creo request
         UploadMonitoraggioIn uploadMonitoraggioIn = new UploadMonitoraggioIn();
@@ -212,53 +199,5 @@ public class ConnettoreMdsSOAP implements ConnettoreMds {
             throw new ConnettoreMdsException("Eccezione nella chiamata downloadFus " + e.getMessage());
         }
     }
-
-    /**
-     * Metodo che invia il tracciato DPM al Mds
-     */
-
-    @Override
-    public DpmMdsResponse invioTracciatoDonazionePostMortem(
-            File xmlToMds,
-            String idSoggettoAlimentante,
-            SoggettoAlimentanteType soggettoAlimentanteType,
-            TipoAttoType tipoAttoType,
-            String idRun
-    ) throws ConnettoreMdsException {
-        log.debug("{}.invioTracciatoDonazionePostMortem - xmlToMds[{}] - idSoggettoAlimentante[{}] - soggettoAlimentanteType[{}] - tipoAttoType[{}] - BEGIN",
-                this.getClass().getName(), xmlToMds, idSoggettoAlimentante, soggettoAlimentanteType, tipoAttoType);
-        DpmInvioXmlRequest request = dpmSoapGateway.creaRequestInvioDpm(idSoggettoAlimentante, soggettoAlimentanteType, tipoAttoType, xmlToMds.getName());
-        return dpmSoapGateway.callInvioDpm(
-                request, config.getUrlDPM().getUrlWebserviceDPM(), xmlToMds, config.getUserInvioDpm().getUserInvioMdsDpm(), config.getPasswordInvioDpm().getPasswordInvioMdsDpm(), idRun
-        );
-
-    }
-
-    /**
-     * Metodo che verifica lo stato di elaborazione del file DPM inviato a MdS
-     */
-    @Override
-    public DpmMdsResponse verificaElaborazioneDonazionePostMortem(String idSoggettoAlimentante,
-                                                                  SoggettoAlimentanteType soggettoAlimentanteType,String idRun) throws ConnettoreMdsException {
-        log.debug("{}.verificaElaborazioneDonazionePostMortem - idSoggettoAlimentante[{}] - soggettoAlimentanteType[{}] - BEGIN",
-                this.getClass().getName(), idSoggettoAlimentante, soggettoAlimentanteType);
-        DpmVerificaStatoXmlRequest request = dpmSoapGateway.creaRequestVerificaDpm(idSoggettoAlimentante, soggettoAlimentanteType);
-        return dpmSoapGateway.callVerificaDpm(request, config.getUrlDPM().getUrlWebserviceDPM(), config.getUserInvioDpm().getUserInvioMdsDpm(), config.getPasswordInvioDpm().getPasswordInvioMdsDpm(), idRun);
-    }
-
-    /**
-     * Metodo per invio file dispovig a mds
-     * @param nomeFile
-     * @return
-     * @throws ConnettoreMdsException
-     */
-    @Override
-    public UploadFileResponse invioTracciatoDispovig(String nomeFile) throws ConnettoreMdsException {
-        log.debug("{}.invioTracciatoDispovig - tracciato[{}] - BEGIN", this.getClass().getName(), nomeFile);
-        UploadFile uploadFileRequest = dispoVigSoapGateway.creaRequestInvioDispovig(nomeFile,config.getXmlOutput().getPercorso());
-        return  dispoVigSoapGateway.callUploadFileDispovig(uploadFileRequest,config.getUrlDispovig().getUrlWebserviceDispovig(),
-                config.getUserInvioDispovig().getUserInvioMdsDispovig(), config.getPasswordInvioDispovig().getPasswordInvioMdsDispovig());
-    }
-
 
 }

@@ -2,7 +2,7 @@
 
 package it.mds.sdk.connettoremds.exception;
 
-public class ConnettoreMdsException extends Exception{
+public class ConnettoreMdsException extends RuntimeException {
 
     public ConnettoreMdsException() {
         super();
