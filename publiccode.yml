@@ -18,8 +18,8 @@ softwareType: library
 description:
   it:
     localisedName: sdk-lib-connettoremds-java
-    shortDescription: SDK - Componenti di Base
-    longDescription: La libreria contiene i componenti di base su cui costruire gli
+    shortDescription: SDK - Connettore MdS
+    longDescription: La libreria contiene le componenti per la comunicazione com MdS
       SDK
     documentation: https://github.com/ministero-salute/sdk-lib-connettoremds-java
     features:
