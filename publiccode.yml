@@ -19,8 +19,7 @@ description:
   it:
     localisedName: sdk-lib-connettoremds-java
     shortDescription: SDK - Connettore MdS
-    longDescription: La libreria contiene le componenti per la comunicazione com MdS
-      SDK
+    longDescription: La libreria contiene le componenti per la comunicazione con MdS
     documentation: https://github.com/ministero-salute/sdk-lib-connettoremds-java
     features:
       - Libreria
